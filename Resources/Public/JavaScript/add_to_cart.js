@@ -102,8 +102,9 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         }
 
-        // TODO: What's the meaning of that?
-        //$(document).trigger("status.cartWasChanged", [true]);
+        document.dispatchEvent(new CustomEvent('extcode.cart.addToCart', {
+            detail: {originalResponse: response}
+        }));
 
         document.querySelectorAll('form').forEach(function(formElement) {
             formElement.reset();
