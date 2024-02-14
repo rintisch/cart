@@ -144,3 +144,30 @@ You need to insert the following viewHelper:
 Other extension which use a similar `CartForm.html` needs the same adaption.
 
 .. index:: Template, Frontend, JavaScript
+
+**5. Migrate to vanilla JS event**
+If your code uses listens to the outdated jQuery event "status.cartWasChanged",
+you need to migrate to the newly introduced vanilla JavaScript event with
+the more straigtforward event name "extcode.cart.addToCart".
+
+Your old code mike look like this:
+
+.. code-block:: javascript
+    $(document).on('status.cartWasChanged', function () {
+        /* your individual action */
+    });
+
+And should be changed to someting like this:
+
+.. code-block:: javascript
+    document.addEventListener('extcode.cart.addToCart', function () {
+        /* your individual action */
+    });
+
+Of if you want to rely on the previous AJAX response, you even can find the
+original response passed to the event:
+
+.. code-block:: javascript
+    document.addEventListener('extcode.cart.addToCart', function (event) {
+        console.log(event.detail.originalResponse);
+    });
