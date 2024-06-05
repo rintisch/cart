@@ -76,6 +76,8 @@ class Product
      */
     protected bool $handleStockInVariants = false;
 
+    protected array $detailViewParameter = [];
+
     public function __construct(
         string $productType,
         int $productId,
@@ -85,7 +87,8 @@ class Product
         TaxClass $taxClass,
         int $quantity,
         bool $isNetPrice = false,
-        FeVariant $feVariant = null
+        FeVariant $feVariant = null,
+        array $detailViewParameter = []
     ) {
         $this->productType = $productType;
         $this->productId = $productId;
@@ -95,6 +98,7 @@ class Product
         $this->taxClass = $taxClass;
         $this->quantity = $quantity;
         $this->isNetPrice = $isNetPrice;
+        $this->detailViewParameter = $detailViewParameter;
 
         if ($feVariant) {
             $this->feVariant = $feVariant;
@@ -728,5 +732,20 @@ class Product
     public function setHandleStockInVariants(bool $handleStockInVariants): void
     {
         $this->handleStockInVariants = $handleStockInVariants;
+    }
+
+    public function getDetailViewParameter(): array
+    {
+        return $this->detailViewParameter;
+    }
+
+    public function setDetailViewParameter(array $detailViewParameter): void
+    {
+        $this->detailViewParameter = $detailViewParameter;
+    }
+
+    public function addDetailViewParameter(string $key, int|string $value): void
+    {
+        $this->detailViewParameter[$key] = $value;
     }
 }
